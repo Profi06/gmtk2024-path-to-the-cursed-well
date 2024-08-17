@@ -497,11 +497,13 @@ size = Vector2(7, 10)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 100
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_afhba")
 
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_401lt")
 animation = &"standing"
 autoplay = "standing"

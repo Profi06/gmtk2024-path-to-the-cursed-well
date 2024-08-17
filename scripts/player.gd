@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 100.0
 
 func _process(delta: float) -> void:
 	if velocity.is_equal_approx(Vector2.ZERO):
