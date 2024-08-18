@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://buush45pgvxmb"]
+
+[ext_resource type="Texture2D" uid="uid://bnevtuus28b4u" path="res://textures/touch_controls/button_background.png" id="1_3adv6"]
+[ext_resource type="Script" path="res://scripts/touch_screen_button.gd" id="1_33kxm"]
+[ext_resource type="Texture2D" uid="uid://broh80bicjq2x" path="res://textures/touch_controls/button_arrow_up.png" id="2_8jtma"]
+
+[node name="TouchScreenButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_33kxm")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3adv6")
+region_rect = Rect2(0, 0, 4, 4)
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_8jtma")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=68 format=3 uid="uid://btc8b8awwuyoh"]
+[gd_scene load_steps=73 format=3 uid="uid://btc8b8awwuyoh"]
 
 [ext_resource type="Texture2D" uid="uid://di8luqkwbbwso" path="res://textures/MinifolksHumans/Outline/MiniArchMage.png" id="1_6rp32"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_afhba"]
+[ext_resource type="Shader" path="res://shaders/health_bar.gdshader" id="3_kw6fg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kxwtr"]
 atlas = ExtResource("1_6rp32")
@@ -495,10 +496,35 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tek1i"]
 size = Vector2(7, 10)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgjj4"]
+radius = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7ppp"]
+resource_local_to_scene = true
+shader = ExtResource("3_kw6fg")
+shader_parameter/hurt_time = 0.0
+shader_parameter/anim_fin_time = 0.0
+shader_parameter/old_health = 0.5
+shader_parameter/curr_health = 0.5
+shader_parameter/fgc_low = Color(1, 0, 0, 1)
+shader_parameter/fgc_high = Color(0, 1, 0, 1)
+shader_parameter/bgc = Color(0, 0, 0, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_8dgjb"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjt2"]
+gradient = SubResource("Gradient_8dgjb")
+width = 16
+height = 2
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 100
 y_sort_enabled = true
 texture_filter = 1
+collision_layer = 3
+motion_mode = 1
 script = ExtResource("1_afhba")
 
 [node name="Texture" type="AnimatedSprite2D" parent="."]
@@ -508,17 +534,26 @@ sprite_frames = SubResource("SpriteFrames_401lt")
 animation = &"standing"
 autoplay = "standing"
 frame_progress = 0.449004
+offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 9)
+visible = false
+z_index = 1
+position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_tek1i")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.1
-drag_top_margin = 0.1
-drag_right_margin = 0.1
-drag_bottom_margin = 0.1
+[node name="Interaction Range" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Range"]
+visible = false
+shape = SubResource("CircleShape2D_mgjj4")
+
+[node name="Healthbar" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_s7ppp")
+position = Vector2(0, -13)
+texture = SubResource("GradientTexture2D_tcjt2")

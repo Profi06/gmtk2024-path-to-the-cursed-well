@@ -1,0 +1,232 @@
+[gd_scene load_steps=29 format=3 uid="uid://dvabfawfqbmqh"]
+
+[ext_resource type="Texture2D" uid="uid://bq0e20jlawo42" path="res://textures/MinifolksUndead/Outline/MiniSkeleton.png" id="1_auc37"]
+[ext_resource type="Script" path="res://scripts/enemies/base_enemy.gd" id="1_j34ms"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iheh2"]
+atlas = ExtResource("1_auc37")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc5hv"]
+atlas = ExtResource("1_auc37")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2lfo"]
+atlas = ExtResource("1_auc37")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mq4t"]
+atlas = ExtResource("1_auc37")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_230sp"]
+atlas = ExtResource("1_auc37")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lhpi"]
+atlas = ExtResource("1_auc37")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb4ya"]
+atlas = ExtResource("1_auc37")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfmpp"]
+atlas = ExtResource("1_auc37")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bc52"]
+atlas = ExtResource("1_auc37")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnq3t"]
+atlas = ExtResource("1_auc37")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk1xa"]
+atlas = ExtResource("1_auc37")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p3tu"]
+atlas = ExtResource("1_auc37")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y847i"]
+atlas = ExtResource("1_auc37")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oil7c"]
+atlas = ExtResource("1_auc37")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sap6"]
+atlas = ExtResource("1_auc37")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlga4"]
+atlas = ExtResource("1_auc37")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_httis"]
+atlas = ExtResource("1_auc37")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0p3nf"]
+atlas = ExtResource("1_auc37")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lct8"]
+atlas = ExtResource("1_auc37")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gyh6"]
+atlas = ExtResource("1_auc37")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjec7"]
+atlas = ExtResource("1_auc37")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xvdw"]
+atlas = ExtResource("1_auc37")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4848g"]
+atlas = ExtResource("1_auc37")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp8oh"]
+atlas = ExtResource("1_auc37")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2c13o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iheh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kc5hv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2lfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mq4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_230sp")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lhpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wb4ya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfmpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bc52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnq3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mk1xa")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p3tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y847i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oil7c")
+}],
+"loop": false,
+"name": &"hop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sap6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlga4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_httis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0p3nf")
+}],
+"loop": true,
+"name": &"standing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lct8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gyh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjec7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xvdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4848g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp8oh")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgxt3"]
+size = Vector2(13, 13)
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+z_index = 100
+y_sort_enabled = true
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_j34ms")
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_2c13o")
+animation = &"standing"
+autoplay = "standing"
+frame_progress = 0.436896
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 8.5)
+shape = SubResource("RectangleShape2D_kgxt3")
+
+[node name="Nav" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+target_desired_distance = 24.0
+
+[node name="Update Target Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="navigation_finished" from="Nav" to="." method="_on_nav_navigation_finished"]
+[connection signal="timeout" from="Update Target Timer" to="." method="_on_update_target_timer_timeout"]
