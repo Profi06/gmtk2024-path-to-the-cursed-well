@@ -1,8 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://buush45pgvxmb"]
+[gd_scene load_steps=15 format=3 uid="uid://buush45pgvxmb"]
 
 [ext_resource type="Texture2D" uid="uid://bnevtuus28b4u" path="res://textures/touch_controls/button_background.png" id="1_3adv6"]
 [ext_resource type="Script" path="res://scripts/touch_screen_button.gd" id="1_33kxm"]
 [ext_resource type="Texture2D" uid="uid://broh80bicjq2x" path="res://textures/touch_controls/button_arrow_up.png" id="2_8jtma"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3w36"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xg6b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cnup"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyfvk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3vtk1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nhj0l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyt6c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_duvso"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ruh0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ck0hc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4742y"]
 
 [node name="TouchScreenButton" type="Control"]
 layout_mode = 3
@@ -52,6 +74,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3w36")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_3xg6b")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4cnup")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_pyfvk")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3vtk1")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nhj0l")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vyt6c")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_duvso")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0ruh0")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ck0hc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4742y")
 flat = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

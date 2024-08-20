@@ -1,10 +1,10 @@
 shader_type canvas_item;
 
 
-uniform float hurt_time = 0.0;
-uniform float anim_fin_time = 0.0;
-uniform float old_health : hint_range(0.0, 1.0, 0.01) = 0.5;
-uniform float curr_health : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float hurt_time = -100.0;
+uniform float anim_fin_time = -100.0;
+uniform float old_health : hint_range(0.0, 1.0, 0.01) = 1.0;
+uniform float curr_health : hint_range(0.0, 1.0, 0.01) = 1.0;
 uniform vec4 fgc_low : source_color = vec4(1.0, 0.0, 0.0, 1.0);
 uniform vec4 fgc_high : source_color = vec4(0.0, 1.0, 0.0, 1.0);
 uniform vec4 bgc : source_color = vec4(0.0, 0.0, 0.0, 0.5);

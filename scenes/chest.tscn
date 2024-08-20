@@ -1,0 +1,144 @@
+[gd_scene load_steps=20 format=3 uid="uid://d2moqjuk65x2v"]
+
+[ext_resource type="Script" path="res://scripts/chest.gd" id="1_nlm51"]
+[ext_resource type="Texture2D" uid="uid://lsc85udsrsmh" path="res://textures/World of Solaria Rural Village/Animated Tiles/Chests/Chest 03.png" id="2_t1dpl"]
+[ext_resource type="AudioStream" uid="uid://bodpsur6tslhx" path="res://sounds/open_chest.wav" id="3_4kffv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1pk3"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rhrp"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugsvs"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d12m8"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldtnh"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(432, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24ok5"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(480, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6ttm"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gx78"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvuvk"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqhbi"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3glhb"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilg7w"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfbvu"]
+atlas = ExtResource("2_t1dpl")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rgqip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1pk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rhrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugsvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d12m8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldtnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24ok5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6ttm")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gx78")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvuvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqhbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3glhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilg7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfbvu")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v71kl"]
+radius = 16.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_46ueu"]
+random_pitch = 1.2
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("3_4kffv")
+
+[node name="Chest" type="Area2D" groups=["PlayerInteractionListeners"]]
+z_index = 100
+y_sort_enabled = true
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_nlm51")
+unlock = 1
+displaytext = "You unlocked the magic projectile spell! You can use it by pressing E."
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rgqip")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v71kl")
+
+[node name="Audio Open" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_46ueu")
+volume_db = -5.0

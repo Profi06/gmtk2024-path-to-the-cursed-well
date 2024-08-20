@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b43sks3yf8wsp"]
+[gd_scene load_steps=12 format=3 uid="uid://b43sks3yf8wsp"]
 
 [ext_resource type="Script" path="res://scripts/gui.gd" id="1_wj0pc"]
 [ext_resource type="PackedScene" uid="uid://buush45pgvxmb" path="res://scenes/touch_screen_button.tscn" id="2_5hb14"]
@@ -7,8 +7,18 @@
 [ext_resource type="Texture2D" uid="uid://m0d1yh47pd1" path="res://textures/touch_controls/button_arrow_down.png" id="5_uy754"]
 [ext_resource type="Texture2D" uid="uid://dk7uhurj00sly" path="res://textures/touch_controls/button_arrow_right.png" id="6_1hse6"]
 [ext_resource type="Texture2D" uid="uid://cxkt1hocr0ohr" path="res://textures/touch_controls/button_interact.png" id="7_coyif"]
+[ext_resource type="Texture2D" uid="uid://cefp43u0xxnnd" path="res://textures/touch_controls/spell_2.png" id="8_6dhru"]
+[ext_resource type="Texture2D" uid="uid://dcttlso0t0sxr" path="res://textures/stop_moving.png" id="9_pe4wq"]
+[ext_resource type="AudioStream" uid="uid://bvfbjk5sjag4i" path="res://sounds/ui.mp3" id="10_7j6qj"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_w3cjt"]
+random_pitch = 1.2
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("10_7j6qj")
 
 [node name="Gui" type="Control" groups=["PlayerInteractionListeners"]]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +29,7 @@ script = ExtResource("1_wj0pc")
 
 [node name="TextBox" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+process_mode = 1
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -36,12 +47,15 @@ grow_vertical = 2
 [node name="TextBoxText" type="RichTextLabel" parent="TextBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]Sample Text Please ignore"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="Control" type="Control" parent="."]
+process_mode = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,3 +132,68 @@ grow_horizontal = 1
 grow_vertical = 1
 action = "interact"
 icon = ExtResource("7_coyif")
+
+[node name="Spell2" parent="Control" instance=ExtResource("2_5hb14")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 922.0
+offset_right = 922.0
+grow_horizontal = 1
+grow_vertical = 1
+action = "spell_2"
+icon = ExtResource("8_6dhru")
+
+[node name="Spell1" parent="Control" instance=ExtResource("2_5hb14")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+action = "spell_1"
+icon = ExtResource("9_pe4wq")
+
+[node name="Audio UI" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_w3cjt")
+volume_db = -10.0
+
+[node name="Pause Menu" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Pause Menu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/PanelContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Pause Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Pause Menu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume:"
+
+[node name="Volume" type="HSlider" parent="Pause Menu/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[connection signal="value_changed" from="Pause Menu/PanelContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]

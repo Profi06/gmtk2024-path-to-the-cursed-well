@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b5cy20t2opds3"
-path="res://.godot/imported/NewHiScore.ttf-ee478d516db85159d3fc376e6c9973e0.fontdata"
+uid="uid://dobol4cfw2ml"
+path="res://.godot/imported/font.ttf-7ba3e8c1ec355f88f1af089917a76c36.fontdata"
 
 [deps]
 
-source_file="res://NewHiScore.ttf"
-dest_files=["res://.godot/imported/NewHiScore.ttf-ee478d516db85159d3fc376e6c9973e0.fontdata"]
+source_file="res://font.ttf"
+dest_files=["res://.godot/imported/font.ttf-7ba3e8c1ec355f88f1af089917a76c36.fontdata"]
 
 [params]
 

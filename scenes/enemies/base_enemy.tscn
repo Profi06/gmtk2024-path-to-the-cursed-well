@@ -1,7 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://dvabfawfqbmqh"]
+[gd_scene load_steps=36 format=3 uid="uid://dvabfawfqbmqh"]
 
 [ext_resource type="Texture2D" uid="uid://bq0e20jlawo42" path="res://textures/MinifolksUndead/Outline/MiniSkeleton.png" id="1_auc37"]
 [ext_resource type="Script" path="res://scripts/enemies/base_enemy.gd" id="1_j34ms"]
+[ext_resource type="PackedScene" uid="uid://chvnqomsbkrb4" path="res://scenes/healthbar.tscn" id="3_pviti"]
+[ext_resource type="Shader" path="res://shaders/health_bar.gdshader" id="4_o51i8"]
+[ext_resource type="AudioStream" uid="uid://cy2wg5636kja2" path="res://sounds/enemy_attack.ogg" id="5_y7a66"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iheh2"]
 atlas = ExtResource("1_auc37")
@@ -117,9 +120,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_230sp")
 }],
-"loop": false,
+"loop": true,
 "name": &"attack",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -140,7 +143,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mk1xa")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -202,9 +205,34 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kgxt3"]
 size = Vector2(13, 13)
 
-[node name="BaseEnemy" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0so4"]
+size = Vector2(13, 12)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ilb4e"]
+resource_local_to_scene = true
+shader = ExtResource("4_o51i8")
+shader_parameter/hurt_time = -100.0
+shader_parameter/anim_fin_time = -100.0
+shader_parameter/old_health = 1.0
+shader_parameter/curr_health = 1.0
+shader_parameter/fgc_low = Color(1, 0, 0, 1)
+shader_parameter/fgc_high = Color(0, 1, 0, 1)
+shader_parameter/bgc = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwta6"]
+radius = 192.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bmfge"]
+random_pitch = 1.2
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("5_y7a66")
+
+[node name="BaseEnemy" type="CharacterBody2D" groups=["Enemies"]]
 z_index = 100
 y_sort_enabled = true
+collision_layer = 4
+collision_mask = 5
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_j34ms")
@@ -212,21 +240,68 @@ script = ExtResource("1_j34ms")
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_2c13o")
-animation = &"standing"
+animation = &"attack"
 autoplay = "standing"
-frame_progress = 0.436896
+offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 8.5)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_kgxt3")
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
-target_desired_distance = 24.0
 
 [node name="Update Target Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
+[node name="Attack" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="AttackRight" type="CollisionShape2D" parent="Attack"]
+unique_name_in_owner = true
+position = Vector2(7, -3)
+shape = SubResource("RectangleShape2D_b0so4")
+disabled = true
+
+[node name="AttackLeft" type="CollisionShape2D" parent="Attack"]
+unique_name_in_owner = true
+position = Vector2(-6, -3)
+shape = SubResource("RectangleShape2D_b0so4")
+disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("3_pviti")]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ilb4e")
+position = Vector2(0, -11)
+
+[node name="Player Finder" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Finder"]
+shape = SubResource("CircleShape2D_uwta6")
+
+[node name="Stun Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="Audio Attack" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bmfge")
+volume_db = -15.0
+pitch_scale = 0.85
+
+[connection signal="animation_changed" from="Texture" to="." method="_on_texture_animation_changed"]
+[connection signal="animation_finished" from="Texture" to="." method="_on_texture_animation_finished"]
+[connection signal="frame_changed" from="Texture" to="." method="_on_texture_frame_changed"]
 [connection signal="navigation_finished" from="Nav" to="." method="_on_nav_navigation_finished"]
 [connection signal="timeout" from="Update Target Timer" to="." method="_on_update_target_timer_timeout"]
+[connection signal="game_over" from="Healthbar" to="." method="_on_healthbar_game_over"]
+[connection signal="body_entered" from="Player Finder" to="." method="_on_player_finder_body_entered"]
+[connection signal="timeout" from="Stun Timer" to="." method="_on_stun_timer_timeout"]

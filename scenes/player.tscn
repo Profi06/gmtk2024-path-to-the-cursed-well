@@ -1,8 +1,48 @@
-[gd_scene load_steps=73 format=3 uid="uid://btc8b8awwuyoh"]
+[gd_scene load_steps=84 format=3 uid="uid://btc8b8awwuyoh"]
 
 [ext_resource type="Texture2D" uid="uid://di8luqkwbbwso" path="res://textures/MinifolksHumans/Outline/MiniArchMage.png" id="1_6rp32"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_afhba"]
+[ext_resource type="Shader" path="res://shaders/spell_3.gdshader" id="2_68bos"]
+[ext_resource type="PackedScene" uid="uid://chvnqomsbkrb4" path="res://scenes/healthbar.tscn" id="3_6nilf"]
 [ext_resource type="Shader" path="res://shaders/health_bar.gdshader" id="3_kw6fg"]
+[ext_resource type="Texture2D" uid="uid://ch2g4a63uhow4" path="res://textures/circle.png" id="6_8svhi"]
+[ext_resource type="AudioStream" uid="uid://k215sun5v10q" path="res://sounds/spell_3.ogg" id="7_eye1k"]
+[ext_resource type="AudioStream" uid="uid://dha13n67oyy38" path="res://sounds/spell_1.ogg" id="7_ka1ad"]
+[ext_resource type="AudioStream" uid="uid://b0ty5ijdvbhfg" path="res://sounds/spell_2.ogg" id="7_pg1v3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8pm4"]
+radius = 32.0156
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iahcm"]
+noise_type = 2
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_frequency = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2di4a"]
+noise = SubResource("FastNoiseLite_iahcm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mp0qm"]
+shader = ExtResource("2_68bos")
+shader_parameter/col = Color(1, 1, 0, 0.188235)
+shader_parameter/bg = SubResource("NoiseTexture2D_2di4a")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tek1i"]
+size = Vector2(7, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgjj4"]
+radius = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vuphs"]
+resource_local_to_scene = true
+shader = ExtResource("3_kw6fg")
+shader_parameter/hurt_time = -100.0
+shader_parameter/anim_fin_time = -100.0
+shader_parameter/old_health = 1.0
+shader_parameter/curr_health = 1.0
+shader_parameter/fgc_low = Color(1, 0, 0, 1)
+shader_parameter/fgc_high = Color(0, 1, 0, 1)
+shader_parameter/bgc = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kxwtr"]
 atlas = ExtResource("1_6rp32")
@@ -351,7 +391,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"spell_1",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -416,9 +456,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d6kaf")
 }],
-"loop": true,
+"loop": false,
 "name": &"spell_3",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -493,51 +533,48 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tek1i"]
-size = Vector2(7, 10)
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ydmrf"]
+random_pitch = 1.2
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("7_ka1ad")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mgjj4"]
-radius = 16.0
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h7od8"]
+random_pitch = 1.2
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("7_pg1v3")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7ppp"]
-resource_local_to_scene = true
-shader = ExtResource("3_kw6fg")
-shader_parameter/hurt_time = 0.0
-shader_parameter/anim_fin_time = 0.0
-shader_parameter/old_health = 0.5
-shader_parameter/curr_health = 0.5
-shader_parameter/fgc_low = Color(1, 0, 0, 1)
-shader_parameter/fgc_high = Color(0, 1, 0, 1)
-shader_parameter/bgc = Color(0, 0, 0, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_8dgjb"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjt2"]
-gradient = SubResource("Gradient_8dgjb")
-width = 16
-height = 2
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wurpm"]
+random_pitch = 1.2
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("7_eye1k")
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 100
 y_sort_enabled = true
 texture_filter = 1
-collision_layer = 3
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_afhba")
 
-[node name="Texture" type="AnimatedSprite2D" parent="."]
+[node name="Spell 3" type="Area2D" parent="."]
 unique_name_in_owner = true
-y_sort_enabled = true
-sprite_frames = SubResource("SpriteFrames_401lt")
-animation = &"standing"
-autoplay = "standing"
-frame_progress = 0.449004
-offset = Vector2(0, -10)
+visible = false
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spell 3"]
+shape = SubResource("CircleShape2D_r8pm4")
+
+[node name="Texture" type="Sprite2D" parent="Spell 3"]
+material = SubResource("ShaderMaterial_mp0qm")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8svhi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 z_index = 1
 position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_tek1i")
@@ -549,11 +586,39 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Range"]
-visible = false
 shape = SubResource("CircleShape2D_mgjj4")
 
-[node name="Healthbar" type="Sprite2D" parent="."]
+[node name="Healthbar" parent="." instance=ExtResource("3_6nilf")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_s7ppp")
-position = Vector2(0, -13)
-texture = SubResource("GradientTexture2D_tcjt2")
+material = SubResource("ShaderMaterial_vuphs")
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_401lt")
+animation = &"standing"
+autoplay = "standing"
+offset = Vector2(0, -10)
+
+[node name="Audio Spell 1" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ydmrf")
+volume_db = -10.0
+bus = &"Spells"
+
+[node name="Audio Spell 2" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_h7od8")
+volume_db = -10.0
+bus = &"Spells"
+
+[node name="Audio Spell 3" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_wurpm")
+volume_db = -10.0
+bus = &"Spells"
+
+[connection signal="body_entered" from="Spell 3" to="." method="_on_spell_3_body_entered"]
+[connection signal="game_over" from="Healthbar" to="." method="_on_healthbar_game_over"]
+[connection signal="animation_finished" from="Texture" to="." method="_on_texture_animation_finished"]
+[connection signal="frame_changed" from="Texture" to="." method="_on_texture_frame_changed"]

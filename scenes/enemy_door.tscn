@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7rlvsnhcnkmv"]
+
+[ext_resource type="Shader" path="res://shaders/enemy_wall.gdshader" id="1_7yre2"]
+[ext_resource type="Script" path="res://scripts/enemy_door.gd" id="1_e1j6o"]
+[ext_resource type="Texture2D" uid="uid://cahruok4yu0ra" path="res://textures/full_sprite.png" id="2_7v6vf"]
+[ext_resource type="Texture2D" uid="uid://dvq6q1xxh1bbw" path="res://textures/enemy_door.png" id="4_qc37a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e86b0"]
+size = Vector2(32, 32)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lewrr"]
+noise_type = 2
+cellular_distance_function = 2
+cellular_return_type = 0
+domain_warp_fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_in628"]
+seamless = true
+noise = SubResource("FastNoiseLite_lewrr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hyyv"]
+shader = ExtResource("1_7yre2")
+shader_parameter/col1 = Color(0.286275, 0.611765, 0.678431, 1)
+shader_parameter/col2 = Color(0.67451, 0, 0.690196, 1)
+shader_parameter/col3 = Color(0.501961, 1, 0.411765, 1)
+shader_parameter/col4 = Color(1, 1, 0.27451, 1)
+shader_parameter/pattern = SubResource("NoiseTexture2D_in628")
+
+[node name="EnemyDoor" type="StaticBody2D"]
+z_index = 100
+y_sort_enabled = true
+script = ExtResource("1_e1j6o")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e86b0")
+
+[node name="Check Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Texture" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_5hyyv")
+texture = ExtResource("2_7v6vf")
+polygon = PackedVector2Array(-16, 16, -16, -16, 16, -16, 16, 16)
+uv = PackedVector2Array(0, 16, 0, 0, 16, 0, 16, 16)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[node name="Frame" type="Sprite2D" parent="."]
+texture = ExtResource("4_qc37a")
+
+[connection signal="timeout" from="Check Timer" to="." method="_on_check_timer_timeout"]

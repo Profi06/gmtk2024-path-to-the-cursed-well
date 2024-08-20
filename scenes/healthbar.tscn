@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://chvnqomsbkrb4"]
+
+[ext_resource type="Shader" path="res://shaders/health_bar.gdshader" id="1_676m1"]
+[ext_resource type="Script" path="res://scripts/healthbar.gd" id="2_p455c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7ppp"]
+resource_local_to_scene = true
+shader = ExtResource("1_676m1")
+shader_parameter/hurt_time = -100.0
+shader_parameter/anim_fin_time = -100.0
+shader_parameter/old_health = 1.0
+shader_parameter/curr_health = 1.0
+shader_parameter/fgc_low = Color(1, 0, 0, 1)
+shader_parameter/fgc_high = Color(0, 1, 0, 1)
+shader_parameter/bgc = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_8dgjb"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjt2"]
+gradient = SubResource("Gradient_8dgjb")
+width = 16
+height = 2
+
+[node name="Healthbar" type="Sprite2D"]
+material = SubResource("ShaderMaterial_s7ppp")
+position = Vector2(0, -13)
+texture = SubResource("GradientTexture2D_tcjt2")
+script = ExtResource("2_p455c")
