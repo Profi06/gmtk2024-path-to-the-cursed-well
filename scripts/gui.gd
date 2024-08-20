@@ -26,6 +26,7 @@ func _input(event: InputEvent) -> void:
 		var toggled = not %"Pause Menu".visible
 		get_tree().paused = toggled
 		%"Pause Menu".visible = toggled
+		%Volume.grab_focus()
 
 
 func _on_player_interaction(area: Area2D):
